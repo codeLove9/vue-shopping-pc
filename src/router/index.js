@@ -36,7 +36,7 @@ export default new VueRouter({
   routes:[
     { path:'/home', component: Home, meta: { showFooter: true } },
     // 动态路由
-    { path:'/search/:iptValue', component: Search,meta: { showFooter: true }, name: 'search' },
+    { path:'/search/:iptValue?', component: Search,meta: { showFooter: true }, name: 'search' },
     { path:'/login', component: Login, meta: { showFooter: false } },
     { path:'/register', component: Register,meta: { showFooter: false } },
     { path: '/', redirect: '/home'}
