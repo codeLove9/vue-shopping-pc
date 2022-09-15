@@ -51,8 +51,12 @@ export default {
   },
   methods: {
     goToSearch() {
+      let location = { name: 'search', params: { iptValue: this.iptValue || undefined } }
       // this.$router.push('/search/' + this.iptValue + '?k='+ this.iptValue.toUpperCase() )
-      this.$router.push({ name: 'search', params: { iptValue: this.iptValue }, query: { k: this.iptValue.toUpperCase() } })
+      if (this.$route.query) {
+        location.query = this.$route.query
+        this.$router.push(location)
+      }
     }
   }
 }

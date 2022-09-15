@@ -14,7 +14,7 @@ export default {
   name: 'App',
   components: {
     Header,
-    Footer
+    Footer,
   },
   created() {
     this.$store.dispatch('getCategoryList')

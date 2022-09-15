@@ -75,8 +75,11 @@ export default {
         } else {
           query.categoryId = category3id
         }
-        location.query = query
-        this.$router.push(location)
+        if (this.$route.params) {
+          location.params = this.$route.params
+          location.query = query
+          this.$router.push(location)
+        }
       }
     },
     showSort() {
@@ -86,7 +89,6 @@ export default {
     },
     hideSort() {
       this.currentIndex = -1
-      console.log(`离开了`);
       if (this.$route.path !== '/home') {
         this.show = false
       }
