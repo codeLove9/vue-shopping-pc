@@ -65,7 +65,6 @@
         </div>
       </div>
     </div>
-  <!-- TODO：分页器 -->
   <Pagination :pageNo="searchParams.pageNo" :pageSize="searchParams.pageSize" :total="total" :continues="5" @changePageNo="pageNo"></Pagination>
   </div>
 </template>
