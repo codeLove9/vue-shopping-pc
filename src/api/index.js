@@ -21,3 +21,22 @@ export const reqFloorList = () => {
     url: '/floor'
   })
 }
+
+// mock的list接口
+// export const reqGetSearchInfo = (params) => {
+//   return mockRequest({
+//     method: 'post',
+//     url: '/list',
+//     data: params
+//   })
+// }
+
+export const reqGetSearchInfo = (params) => {
+  return request({
+    method: 'post',
+    url: '/list',
+    data: params
+  })
+}
+
+

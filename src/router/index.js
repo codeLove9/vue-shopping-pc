@@ -19,7 +19,7 @@ VueRouter.prototype.push = function (location, resolve, reject) {
         //若此时直接使用originPush()方法，则函数内的this指向window（内部代码将无法执行）。故应用call或apply方法修改this指向
     } else {    //如果我们没有指定成功/失败的回调，则自动帮我们生成，防止报错
         originPush.call(this, location, () => { }, () => { })
-        console.log(this);
+
     }
 }
 

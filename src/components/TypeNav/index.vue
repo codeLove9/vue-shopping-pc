@@ -50,8 +50,13 @@ export default {
   name: 'TypeNav',
   data() {
     return {
-      currentIndex: -1,
-      show: true
+      show: true,
+      currentIndex: -1
+    }
+  },
+  created() {
+     if(this.$route.path !== '/home') {
+      this.show = false
     }
   },
   computed: {
@@ -69,11 +74,11 @@ export default {
       let query = { categoryName: categoryname }
       if (categoryname) {
         if (category1id) {
-          query.categoryId = category1id
+          query.category1Id = category1id
         } else if (category2id) {
-          query.categoryId = category2id
+          query.category2Id = category2id
         } else {
-          query.categoryId = category3id
+          query.category3Id = category3id
         }
         if (this.$route.params) {
           location.params = this.$route.params

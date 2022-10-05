@@ -32,7 +32,7 @@
       </h1>
       <div class="searchArea">
         <form action="###" class="searchForm">
-          <input type="text" id="autocomplete" class="input-error input-xxlarge" v-model="iptValue" />
+          <input type="text" id="autocomplete" class="input-error input-xxlarge" v-model="keyword" />
 
           <button class="sui-btn btn-xlarge btn-danger" type="button" @click="goToSearch">搜索</button>
         </form>
@@ -46,13 +46,18 @@ export default {
   name: 'Header',
   data() {
     return {
-      iptValue: ''
+      keyword: ''
     }
+  },
+  mounted() {
+    this.$bus.$on('clear', () => {
+      this.keyword = ''
+    })
   },
   methods: {
     goToSearch() {
-      let location = { name: 'search', params: { iptValue: this.iptValue || undefined } }
-      // this.$router.push('/search/' + this.iptValue + '?k='+ this.iptValue.toUpperCase() )
+      let location = { name: 'search', params: { keyword: this.keyword || undefined } }
+      // this.$router.push('/search/' + this.keyword + '?k='+ this.keyword.toUpperCase() )
       if (this.$route.query) {
         location.query = this.$route.query
         this.$router.push(location)
