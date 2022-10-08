@@ -3,10 +3,7 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-import Home from '@/view/Home'
-import Login from '@/view/Login'
-import Search from '@/view/Search'
-import Register from '@/view/Register'
+import routes from './router'
 
 // 重写push|replace方法
 //先把VueRouter的push和replace方法保存一份
@@ -33,12 +30,9 @@ VueRouter.prototype.replace = function (location, resolve, reject) {
 }
 
 export default new VueRouter({
-  routes:[
-    { path:'/home', component: Home, meta: { showFooter: true } },
-    // 动态路由
-    { path:'/search/:iptValue?', component: Search,meta: { showFooter: true }, name: 'search' },
-    { path:'/login', component: Login, meta: { showFooter: false } },
-    { path:'/register', component: Register,meta: { showFooter: false } },
-    { path: '/', redirect: '/home'}
-  ]
+  routes: routes,
+  scrollBehavior(to, from, savedPosition) {
+    // 始终滚动到顶部
+    return { y: 0 }
+  }
 })

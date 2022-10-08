@@ -1,8 +1,8 @@
 <template>
   <div class="swiper" id="floor1Swiper">
     <div class="swiper-wrapper">
-      <div class="swiper-slide" v-for="carousellist in list" :key="carousellist.id">
-        <img :src="carousellist.imgUrl" />
+      <div class="swiper-slide" v-for="carouselList in list" :key="carouselList.id">
+        <img :src="carouselList.imgUrl" />
       </div>
     </div>
     <!-- 如果需要分页器 -->
@@ -28,7 +28,6 @@ export default {
       handler: function (newVal, oldVal) {
         this.$nextTick(() => {
           var mySwiper = new Swiper('.swiper', {
-            loop: true, // 循环模式选项
             // 如果需要分页器
             pagination: {
               el: '.swiper-pagination',
@@ -55,4 +54,4 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped></style>

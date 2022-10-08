@@ -14,7 +14,7 @@
             <li class="with-x" v-if="searchParams.categoryName">{{ searchParams.categoryName }}<i @click="removeCategoryName">×</i></li>
             <li class="with-x" v-if="searchParams.keyword">{{ searchParams.keyword }}<i @click="removeKeyword">×</i></li>
             <li class="with-x" v-if="searchParams.trademark">{{ searchParams.trademark.slice(2) }}<i @click="removeTrademark">×</i></li>
-
+            <li class="with-x" v-for="(attrValue, index) in searchParams.props" :key="index">{{ attrValue.split(":")[1] }}<i @click="removeAttr(index)">×</i></li>
           </ul>
         </div>
 
@@ -40,7 +40,9 @@
               <li class="yui3-u-1-5" v-for="good in goodsList" :key="good.id">
                 <div class="list-wrap">
                   <div class="p-img">
-                    <a href="item.html" target="_blank"><img :src="good.defaultImg" /></a>
+                    <router-link :to="`/detail/${good.id}`">
+                      <img :src="good.defaultImg" />
+                    </router-link>
                   </div>
                   <div class="price">
                     <strong>
@@ -122,6 +124,12 @@ export default {
     removeTrademark() {
       this.searchParams.trademark = undefined
       this.getData()
+    },
+    removeAttr(index) {
+      //再次整理参数
+      this.searchParams.props.splice(index, 1);
+      //再次发请求
+      this.getData();
     },
     attrInfo1(attr, attrValue) {
       // console.log(attr, attrValue);
