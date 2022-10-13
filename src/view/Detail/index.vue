@@ -74,13 +74,12 @@
             </div>
             <div class="cartWrap">
               <div class="controls">
-                <!-- TODO:cart -->
                 <input autocomplete="off" class="itxt" v-model="skuNum" @change="changeSkuNum">
                 <a href="javascript:" class="plus" @click="skuNum++">+</a>
                 <a href="javascript:" class="mins" @click="skuNum<=1?skuNum=1:skuNum--">-</a>
               </div>
               <div class="add">
-                <a href="javascript:">加入购物车</a>
+                <a @click="addShopCart">加入购物车</a>
               </div>
             </div>
           </div>
@@ -347,7 +346,7 @@
       Zoom
     },
     created() {
-      this.$store.dispatch('getGoodList', this.$route.params.skuid)
+      this.$store.dispatch('getGoodList', this.$route.params.skuId)
     },
     computed: {
       ...mapGetters(['categoryView', 'skuInfo', 'spuSaleAttrList']),
@@ -367,6 +366,15 @@
         let value = e.target.value
         if(!/^(([1-9]\d+)|([2-9]))$/.test(value)) {
           this.skuNum = 1
+        }
+      },
+      async addShopCart() {
+        try {
+          await this.$store.dispatch('addOrUpdateShopCart', {skuId: this.$route.params.skuId, skuNum: this.skuNum})
+          this.$router.push({name: 'addcartsuccess', query: {skuNum: this.skuNum}})
+          sessionStorage.setItem('skuInfo', JSON.stringify(this.skuInfo))
+        } catch (error) {
+          alert(error.message)
         }
       }
     }

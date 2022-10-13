@@ -2,6 +2,7 @@ import axios from 'axios'
 import nprogress from 'nprogress';
 import 'nprogress/nprogress.css'
 // console.log(nprogress);
+import store from '@/store'
 
 const requests = axios.create({
   baseURL: '/api',
@@ -12,6 +13,10 @@ const requests = axios.create({
 requests.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
     nprogress.start()
+    // console.log(store);
+    if(store.state.Detail.uuid_token) {
+      config.headers.userTempId = store.state.Detail.uuid_token
+    }
     return config;
   }, function (error) {
     // 对请求错误做些什么

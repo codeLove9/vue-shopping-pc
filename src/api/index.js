@@ -39,11 +39,31 @@ export const reqGetSearchInfo = (params) => {
   })
 }
 
-export const reqGoodsInfo = (skuid) => {
+export const reqGoodsInfo = (skuId) => {
   return request({
     method: 'get',
-    url: `/item/${skuid}`,
+    url: `/item/${skuId}`,
   })
 }
 
+export const reqAddOrUpdateShopCart = (skuId,skuNum) => {
+  return request({
+    method: 'post',
+    url: `/cart/addToCart/${skuId}/${skuNum}`,
+  })
+}
+
+export const reqCartList = () => {
+  return request({
+    method: 'get',
+    url:`/cart/cartList`
+  })
+}
+
+export const reqDeleteCartById = (skuId) => {
+   return request({
+    method: 'delete',
+    url:`/cart/deleteCart/${skuId}`
+  })
+}
 
