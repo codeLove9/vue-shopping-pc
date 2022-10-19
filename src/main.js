@@ -8,17 +8,24 @@ import store from '@/store'
 import './mock/mockServer'
 import 'swiper/css/bundle'
 import 'swiper/bundle'
+import * as API from '@/api'
+import  { Button, MessageBox } from 'element-ui'
 
 Vue.config.productionTip = false
 
 Vue.component('TypeNav', TypeNav)
 Vue.component('Carousel', Carousel)
 Vue.component('Pagination', Pagination)
+Vue.component(Button.name, Button);
+Vue.prototype.$msgbox = MessageBox
+Vue.prototype.$alert = MessageBox.alert
+
 
 new Vue({
   render: h => h(App),
   beforeCreate() {
     Vue.prototype.$bus = this
+    Vue.prototype.$API = API
   },
   router,
   store

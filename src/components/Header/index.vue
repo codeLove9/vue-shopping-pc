@@ -4,20 +4,24 @@
     <div class="top">
       <div class="container">
         <div class="loginList">
-          <p>尚品汇欢迎您！</p>
-          <p>
+          <p>淘宝欢迎您！</p>
+          <p v-if="!userName">
             <span>请</span>
             <router-link to="/login">登录</router-link>
             <router-link to="register" class="register">免费注册</router-link>
+          </p>
+          <p v-else>
+            <a>{{userName}}</a>
+            <a class="register" @click="logOut">退出登录</a>
           </p>
         </div>
         <div class="typeList">
           <a href="###">我的订单</a>
           <a href="###">我的购物车</a>
-          <a href="###">我的尚品汇</a>
-          <a href="###">尚品汇会员</a>
+          <a href="###">我的淘宝</a>
+          <a href="###">淘宝会员</a>
           <a href="###">企业采购</a>
-          <a href="###">关注尚品汇</a>
+          <a href="###">关注淘宝</a>
           <a href="###">合作招商</a>
           <a href="###">商家后台</a>
         </div>
@@ -26,7 +30,7 @@
     <!--头部第二行 搜索区域-->
     <div class="bottom">
       <h1 class="logoArea">
-        <router-link class="logo" title="尚品汇" to="/home">
+        <router-link class="logo" title="淘宝" to="/home">
           <img src="./images/logo.png" alt="" />
         </router-link>
       </h1>
@@ -55,13 +59,26 @@ export default {
     })
   },
   methods: {
-    goToSearch() {
+    goToSearch(e) {
       // this.$router.push('/search/' + this.keyword + '?k='+ this.keyword.toUpperCase() )
       if (this.$route.query) {
         let location = { name: 'search', params: { keyword: this.keyword || undefined } }
         location.query = this.$route.query
         this.$router.push(location)
       }
+    },
+    async logOut() {
+      try {
+        await this.$store.dispatch('userLogOut')
+        this.$router.push('/home')
+      } catch (error) {
+        alert(error.message)
+      }
+    }
+  },
+  computed: {
+    userName() {
+      return this.$store.state.User.userInfo.name
     }
   }
 }
@@ -118,7 +135,8 @@ export default {
 
       .logo {
         img {
-          width: 175px;
+          width: 100px;
+          height: 60px;
           margin: 25px 45px;
         }
       }

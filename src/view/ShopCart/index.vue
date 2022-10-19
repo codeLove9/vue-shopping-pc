@@ -13,7 +13,7 @@
       <div class="cart-body">
         <ul class="cart-list" v-for="cart in cartInfoList" :key="cart.id">
           <li class="cart-list-con1">
-            <input type="checkbox" name="chk_list" :checked="cart.isChecked == 1" />
+            <input type="checkbox" name="chk_list" :checked="cart.isChecked == 1" @change="updateChecked(cart, $event)"/>
           </li>
           <li class="cart-list-con2">
             <div>
@@ -42,22 +42,24 @@
     </div>
     <div class="cart-tool">
       <div class="select-all">
-        <input class="chooseAll" type="checkbox" @click="isAllChecked" :checked="isAllChecked" />
+        <input class="chooseAll" type="checkbox" :checked="isAllChecked && cartInfoList.length != 0" @change="updateAllCartChecked" />
         <span>全选</span>
       </div>
       <div class="option">
-        <a href="#none">删除选中的商品</a>
+        <a href="#none" @click="deleteAllCheckedCart">删除选中的商品</a>
         <a href="#none">移到我的关注</a>
         <a href="#none">清除下柜商品</a>
       </div>
       <div class="money-box">
-        <div class="chosed">已选择 <span>0</span>件商品</div>
+        <div class="chosed">已选择 <span>{{ totalNum }}</span>件商品</div>
         <div class="sumprice">
           <em>总价（不含运费） ：</em>
           <i class="summoney">{{ totalPrice }}</i>
         </div>
         <div class="sumbtn">
-          <a class="sum-btn" href="###" target="_blank">结算</a>
+          <a class="sum-btn" href="#/trade" target="_blank" >结算</a>
+          <!-- <a class="sum-btn" @click="router.push('/trade')" >结算</a> -->
+
         </div>
       </div>
     </div>
@@ -102,10 +104,38 @@ export default {
       }
     }, 500),
     async deleteCartById(cart) {
-      // TODO:处理函数
       console.log(cart.skuId)
       try {
         await this.$store.dispatch('deleteCartById', cart.skuId)
+        this.getData()
+      } catch (error) {
+        alert(error.message)
+      }
+    },
+    async updateChecked(cart, event) {
+      // console.log(event.target.checked);
+      // console.log({skuId: cart.skuId, isChecked});
+      try {
+        let isChecked = event.target.checked? 1: 0
+        await this.$store.dispatch('updateCheckedById', {skuId: cart.skuId, isChecked})
+        this.getData()
+      } catch (error) {
+        alert(error.message)
+      }
+    },
+    async deleteAllCheckedCart() {
+      try {
+        await this.$store.dispatch('deleteAllCheckedCart')
+        this.getData()
+      } catch (error) {
+        alert(error.message)
+      }
+    },
+    async updateAllCartChecked(event) {
+      // console.log(event.target.checked);
+      try {
+        let checked = event.target.checked? 1: 0
+        await this.$store.dispatch('updateAllCartChecked', checked)
         this.getData()
       } catch (error) {
         alert(error.message)
@@ -119,10 +149,15 @@ export default {
     },
     totalPrice() {
       let sum = 0
-      this.cartInfoList.forEach(item => {
+      this.cartInfoList.filter(item => {
+        return item.isChecked == 1
+      }).forEach(item => {
         sum += item.skuNum * item.skuPrice
       })
       return sum
+    },
+    totalNum() {
+      return this.cartInfoList.filter(item => item.isChecked == 1).length
     },
     isAllChecked() {
       return this.cartInfoList.every(item => {

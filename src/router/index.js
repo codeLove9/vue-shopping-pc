@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import routes from './router'
+import store from '@/store'
 
 Vue.use(VueRouter)
-
-import routes from './router'
 
 // 重写push|replace方法
 //先把VueRouter的push和replace方法保存一份
@@ -29,10 +29,41 @@ VueRouter.prototype.replace = function (location, resolve, reject) {
     }
 }
 
-export default new VueRouter({
+let router =  new VueRouter({
   routes: routes,
   scrollBehavior(to, from, savedPosition) {
     // 始终滚动到顶部
     return { y: 0 }
   }
 })
+
+router.beforeEach(async (to, from, next) => {
+    // console.log(store);
+    let token = store.state.User.token
+    let name =  store.state.User.userInfo.name
+    if(token) {
+        if(to.path == '/login' || to.path == '/register') {
+            next('/home')
+        } else {
+            // 如果去得不是登录页
+            // 如果存在用户名
+            if(name) {
+                next()
+            } else {
+                // 不存在用户名那就派发用户名
+                try {
+                    await store.dispatch('getUserInfo')
+                    next()
+                } catch (error) {
+                    // 派发了用户名还是报错，原因是token失效了，清除登录信息并重新登录
+                    await store.dispatch('userLogOut')
+                    next('login')
+                }
+            }
+        }
+    } else {
+        next()
+    }
+})
+
+export default router

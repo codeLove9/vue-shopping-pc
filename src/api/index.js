@@ -67,3 +67,75 @@ export const reqDeleteCartById = (skuId) => {
   })
 }
 
+export const reqUpdateCheckedById = ({ skuId, isChecked }) => {
+  return request({
+    method: 'get',
+    url: `/cart/checkCart/${skuId}/${isChecked}`
+  })
+}
+
+export const reqGetCode = (phone) => {
+  return request({
+    method: 'get',
+    url: `/user/passport/sendCode/${phone}`
+  })
+}
+
+export const reqUserRegister = (data) => {
+  return request({
+    method: 'post',
+    url: '/user/passport/register',
+    data
+  })
+}
+
+export const reqUserLogin = (data) => {
+  return request({
+    method: 'post',
+    url: '/user/passport/login',
+    data
+  })
+}
+
+export const reqUserInfo = () => {
+  return request({
+    method: 'get',
+    url: '/user/passport/auth/getUserInfo'
+  })
+}
+
+export const reqUserLogOut = () => {
+  return request({
+    method: 'get',
+    url: '/user/passport/logout'
+  })
+}
+
+export const reqAddressInfo = () => {
+  return request({
+    method: 'get',
+    url: '/user/userAddress/auth/findUserAddressList'
+  })
+}
+
+export const reqOderInfo = () => {
+  return request ({
+    method: 'get',
+    url: '/order/auth/trade'
+  })
+}
+
+export const reqSubmitOrder = (tradeNo, data) => {
+  return request({
+    method: 'post',
+    url: `/order/auth/submitOrder?tradeNo=${tradeNo}`,
+    data
+  })
+}
+
+export const reqPayInfo = (orderId) => {
+  return request({
+    method:'get',
+    url: `/payment/weixin/createNative/${orderId}`
+  })
+}

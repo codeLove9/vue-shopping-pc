@@ -17,6 +17,9 @@ requests.interceptors.request.use(function (config) {
     if(store.state.Detail.uuid_token) {
       config.headers.userTempId = store.state.Detail.uuid_token
     }
+    if(store.state.User.token) {
+      config.headers.token = store.state.User.token
+    }
     return config;
   }, function (error) {
     // 对请求错误做些什么

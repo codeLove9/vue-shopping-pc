@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TypeNav />
+    <TypeNav @getRouterParams="refreshSearch" />
     <div class="main">
       <div class="py-container">
         <!--bread-->
@@ -158,6 +158,18 @@ export default {
     },
     pageNo(val) {
       this.searchParams.pageNo = val
+      this.getData()
+    },
+    refreshSearch(value) {
+      // console.log(value.category1Id);
+      this.searchParams.category1Id = undefined
+      this.searchParams.category2Id = undefined
+      this.searchParams.category3Id = undefined
+      this.searchParams.categoryName = undefined
+      this.searchParams.keyword = undefined
+      this.searchParams.category1Id = value.category1Id
+      this.searchParams.categoryName = value.categoryName
+      // console.log(this.searchParams)
       this.getData()
     }
   },

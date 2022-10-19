@@ -32,7 +32,7 @@
       <nav class="nav">
         <a href="###">服装城</a>
         <a href="###">美妆馆</a>
-        <a href="###">尚品汇超市</a>
+        <a href="###">淘宝超市</a>
         <a href="###">全球购</a>
         <a href="###">闪购</a>
         <a href="###">团购</a>
@@ -86,6 +86,7 @@ export default {
           this.$router.push(location)
         }
       }
+      this.$emit('getRouterParams', this.$route.query)
     },
     showSort() {
       if (this.$route.path !== '/home') {

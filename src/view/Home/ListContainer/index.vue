@@ -8,7 +8,7 @@
       <div class="right">
         <div class="news">
           <h4>
-            <em class="fl">尚品汇快报</em>
+            <em class="fl">淘宝快报</em>
             <span class="fr tip">更多 ></span>
           </h4>
           <div class="clearix"></div>
@@ -165,7 +165,7 @@ export default {
           width: 25%;
 
           .list-item {
-            background-image: url(./images/icons.png);
+            background-image: url(~@/assets/icons.png);
             width: 61px;
             height: 40px;
             display: block;

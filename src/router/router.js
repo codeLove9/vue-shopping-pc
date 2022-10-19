@@ -5,7 +5,11 @@ import Register from '@/view/Register'
 import Detail from '@/view/Detail'
 import AddCartSuccess from '@/view/AddCartSuccess'
 import ShopCart from '@/view/ShopCart'
+import Trade from '@/view/Trade'
+import Pay from '@/view/Pay'
 export default [
+  { path:'/pay', component: Pay, meta: { showFooter: true } },
+  { path:'/trade', component: Trade, meta: { showFooter: true } },
   { path:'/shopcart', component: ShopCart, meta: { showFooter: true } },
   { path:'/addcartsuccess', component: AddCartSuccess, meta: { showFooter: true }, name: 'addcartsuccess' },
   { path:'/detail/:skuId', component: Detail, meta: { showFooter: true } },
