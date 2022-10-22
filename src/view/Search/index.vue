@@ -40,9 +40,8 @@
               <li class="yui3-u-1-5" v-for="good in goodsList" :key="good.id">
                 <div class="list-wrap">
                   <div class="p-img">
-                    
                     <router-link :to="`/detail/${good.id}`">
-                      <img :src="good.defaultImg" />
+                      <img v-lazy="good.defaultImg" />
                     </router-link>
                   </div>
                   <div class="price">
@@ -208,6 +207,7 @@ export default {
 <style lang="less" scoped>
 .main {
   margin: 10px 0;
+  text-align: center;
 
   .py-container {
     width: 1200px;
@@ -327,6 +327,7 @@ export default {
 
       .goods-list {
         margin: 20px 0;
+        text-align: center;
 
         ul {
           display: flex;

@@ -52,6 +52,7 @@ export default {
 
 <style lang="less" scoped>
   .pagination {
+    text-align: center;
     button {
       margin: 0 5px;
       background-color: #f4f4f5;

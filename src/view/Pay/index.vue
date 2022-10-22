@@ -1,6 +1,6 @@
 <template>
   <div class="pay-main">
-    <el-button type="primary" icon="el-icon-edit">test</el-button>
+    <!-- <el-button type="primary" icon="el-icon-edit">test</el-button> -->
     <div class="pay-container">
       <div class="checkout-tit">
         <h4 class="tit-txt">
@@ -15,7 +15,7 @@
       <div class="checkout-info">
         <h4>重要说明：</h4>
         <ol>
-          <li>尚品汇商城支付平台目前支持<span class="zfb">支付宝</span>支付方式。</li>
+          <li>京东商城支付平台目前支持<span class="zfb">支付宝</span>支付方式。</li>
           <li>其它支付渠道正在调试中，敬请期待。</li>
           <li>为了保证您的购物支付流程顺利完成，请保存以下支付宝信息。</li>
         </ol>
@@ -84,11 +84,14 @@
 </template>
 
 <script>
+  import QRCode from 'qrcode'
   export default {
     name: 'Pay',
     data() {
       return {
-        payInfo: {}
+        payInfo: {},
+        timer: null,
+        code: ''
       }
     },
     computed: {
@@ -106,14 +109,45 @@
           this.payInfo = res.data
         }
       },
-      open() {
-         this.$alert('<strong>这是 <i>HTML</i> 片段</strong>', 'HTML 片段', {
+      async open() {
+        let url = await QRCode.toDataURL(this.payInfo.codeUrl)
+        this.$alert(`<img src=${url} />`, '请你微信支付', {
           dangerouslyUseHTMLString: true,
           center: true,
           showCancelButton: true,
           cancelButtonText: '支付遇见问题',
-          confirmButtonText: '已支付成功'
+          confirmButtonText: '已支付成功',
+          showClose: false,
+          beforeClose: (action, instance, done) => {
+            console.log(action, instance, done);
+            if(action == 'cancel') {
+              alert('支付遇到了一点问题呢~~请重新尝试')
+              clearInterval(this.timer)
+              this.timer = null
+              done()
+            } else {
+              // 测试用，不用花钱直接过
+              // if(this.code == 200) {
+                clearInterval(this.timer)
+                this.timer = null
+                done()
+                this.$router.push('/paysuccess')
+              // }
+            }
+          }
         });
+        if(!this.timer) {
+          this.timer = setInterval(async() => {
+            const {data: res} = await this.$API.reqPayStatus(this.orderId)
+            // console.log(res);
+            if(res.code == 200) {
+              this.timer == null
+              this.code = res.code
+              this.$msgbox.close()
+              this.$router.push('/paysuccess')
+            }
+          }, 1000)
+        }
       }
     }
   }

@@ -10,6 +10,9 @@ import 'swiper/css/bundle'
 import 'swiper/bundle'
 import * as API from '@/api'
 import  { Button, MessageBox } from 'element-ui'
+import VueLazyload from 'vue-lazyload'
+import lazy from '@/assets/lazy.gif'
+import '@/plugins/validate'
 
 Vue.config.productionTip = false
 
@@ -19,7 +22,9 @@ Vue.component('Pagination', Pagination)
 Vue.component(Button.name, Button);
 Vue.prototype.$msgbox = MessageBox
 Vue.prototype.$alert = MessageBox.alert
-
+Vue.use(VueLazyload, {
+  loading: lazy
+})
 
 new Vue({
   render: h => h(App),

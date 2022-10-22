@@ -14,33 +14,45 @@
           </ul>
 
           <div class="content">
-            <form @submit.prevent="userLogin">
+            <form>
               <div class="input-text clearFix">
                 <span></span>
-                <input type="text" placeholder="邮箱/用户名/手机号" v-model="phone">
+                <input
+                  type="text"
+                  placeholder="邮箱/用户名/手机号"
+                  v-model="phone"
+                />
               </div>
               <div class="input-text clearFix">
                 <span class="pwd"></span>
-                <input type="text" placeholder="请输入密码" v-model="password">
+                <input
+                  type="text"
+                  placeholder="请输入密码"
+                  v-model="password"
+                />
               </div>
               <div class="setting clearFix">
                 <label class="checkbox inline">
-                  <input name="m1" type="checkbox" value="2" checked="">
+                  <input name="m1" type="checkbox" value="2" checked="" />
                   自动登录
                 </label>
                 <span class="forget">忘记密码？</span>
               </div>
-              <button class="btn">登&nbsp;&nbsp;录</button>
+              <button class="btn" @click.prevent="userLogin">
+                登&nbsp;&nbsp;录
+              </button>
             </form>
 
             <div class="call clearFix">
               <ul>
-                <li><img src="./images/qq.png" alt=""></li>
-                <li><img src="./images/sina.png" alt=""></li>
-                <li><img src="./images/ali.png" alt=""></li>
-                <li><img src="./images/weixin.png" alt=""></li>
+                <li><img src="./images/qq.png" alt="" /></li>
+                <li><img src="./images/sina.png" alt="" /></li>
+                <li><img src="./images/ali.png" alt="" /></li>
+                <li><img src="./images/weixin.png" alt="" /></li>
               </ul>
-              <router-link class="register" to="/register">立即注册</router-link>
+              <router-link class="register" to="/register"
+                >立即注册</router-link
+              >
             </div>
           </div>
         </div>
@@ -54,13 +66,10 @@
         <li>联系客服</li>
         <li>商家入驻</li>
         <li>营销中心</li>
-        <li>手机淘宝</li>
+        <li>手机京东</li>
         <li>销售联盟</li>
-        <li>淘宝社区</li>
+        <li>京东社区</li>
       </ul>
-      <div class="address">地址：北京市昌平区宏福科技园综合楼6层</div>
-      <div class="beian">京ICP备19006430号
-      </div>
     </div>
   </div>
 </template>
@@ -71,7 +80,7 @@
     data() {
       return {
         phone: '',
-        password: ''
+        password: '',
       }
     },
     methods: {
@@ -81,7 +90,10 @@
           // phone&&password&&await this.$store.dispatch('userLogin', {phone, password})
           if(phone != '' && password != '') {
             await this.$store.dispatch('userLogin', {phone, password})
-            this.$router.push('/home')
+            // console.log(this.$route.query.redirect);
+            // 如果有query参数，跳转到相应路由，否则跳转home
+            let toPath = this.$route.query.redirect || '/home'
+            this.$router.push(toPath)
           } else {
             throw new Error('请输入用户名或密码')
           }   

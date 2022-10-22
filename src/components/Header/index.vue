@@ -4,7 +4,7 @@
     <div class="top">
       <div class="container">
         <div class="loginList">
-          <p>淘宝欢迎您！</p>
+          <p>京东欢迎您！</p>
           <p v-if="!userName">
             <span>请</span>
             <router-link to="/login">登录</router-link>
@@ -16,12 +16,12 @@
           </p>
         </div>
         <div class="typeList">
-          <a href="###">我的订单</a>
-          <a href="###">我的购物车</a>
-          <a href="###">我的淘宝</a>
-          <a href="###">淘宝会员</a>
+          <a href="#/center/myorder">我的订单</a>
+          <a href="#/shopcart">我的购物车</a>
+          <a href="###">我的京东</a>
+          <a href="###">京东会员</a>
           <a href="###">企业采购</a>
-          <a href="###">关注淘宝</a>
+          <a href="###">关注京东</a>
           <a href="###">合作招商</a>
           <a href="###">商家后台</a>
         </div>
@@ -30,8 +30,8 @@
     <!--头部第二行 搜索区域-->
     <div class="bottom">
       <h1 class="logoArea">
-        <router-link class="logo" title="淘宝" to="/home">
-          <img src="./images/logo.png" alt="" />
+        <router-link class="logo" title="京东" to="/home">
+          <img src="./images/logo.png"/>
         </router-link>
       </h1>
       <div class="searchArea">
@@ -135,7 +135,7 @@ export default {
 
       .logo {
         img {
-          width: 100px;
+          width: 60px;
           height: 60px;
           margin: 25px 45px;
         }

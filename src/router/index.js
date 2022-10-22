@@ -62,7 +62,16 @@ router.beforeEach(async (to, from, next) => {
             }
         }
     } else {
-        next()
+        // 未登录不能去交易页、支付页、个人中心页
+        // 可以去home页、搜索页
+        let cantPath = ['/trade', '/pay', '/center']
+        cantPath.forEach(item => {
+            if(to.path.indexOf(item) != -1) {
+                next('/login?redirect='+ to.path)
+            } else {
+                next()
+            }
+        })
     }
 })
 
