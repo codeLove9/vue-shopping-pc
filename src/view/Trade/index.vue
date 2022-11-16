@@ -130,7 +130,7 @@
           orderDetailList: this.orderInfo.detailArrayList,
         }
         const { data: res } = await this.$API.reqSubmitOrder(tradeNo, data)
-        // console.log(res);
+        console.log(res);
         if(res.code == 200) {
           let orderId = res.data
           this.$router.push(`/pay?orderId=${orderId}`)
