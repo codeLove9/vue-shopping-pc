@@ -1,24 +1,7 @@
 # shopping-app
 
-## Project setup
+## 测试账号
 ```
-yarn install
+username：13700000000
+password：111111
 ```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
